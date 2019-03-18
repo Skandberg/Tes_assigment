@@ -27,6 +27,7 @@
       else
       {
         alert ("Succesfully completed ");
+        location.reload();
       }
      });  
      
