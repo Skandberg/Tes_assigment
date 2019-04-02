@@ -2,25 +2,68 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-        <script type="text/javascript" src="jquery-3.3.1.js"></script>
-        <script type="text/javascript" src="Form.js"></script>
+        <script src="jquery-3.3.1.js"></script>
         <link rel="stylesheet" href="Style.css">
         <title>Test task</title>
     </head>
     <body>
         <h1>Registration form</h1>
-
-        <p id="title_name">User name</p>
-        <p id="title_surname">User surname</p>
-        <p id="title_personal_code">Personal code</p>
-        <p id="title_useful_spam">Do you want to subscribe to our useful updates?</p>
-        <p id="title_useless_spam">Do you want to subscribe to our useless updates?</p>
+        <div id="Form">
+            <p id="title_name">User name</p>
+            <p id="title_surname">User surname</p>
+            <p id="title_personal_code">Personal code</p>
+            <p id="title_useful_spam">Do you want to subscribe to our useful updates?</p>
+            <p id="title_useless_spam">Do you want to subscribe to our useless updates?</p>
         
-        <input type="text" id="name"><br>
-        <input type="text" id="surname"><br>
-        <input type="text" id="personal_code"><br>
-        <input type="checkbox" id="useful_spam"><br>
-        <input type="checkbox" id="useless_spam"><br>
-        <input type="button" id="check_text" value="Submit">
+            <input type="text" id="name" v-model="name"><br>
+            <input type="text" id="surname" v-model="surname"><br>
+            <input type="text" id="personal_code" v-model="personal_code"><br>
+            <input type="checkbox" id="useful_spam"><br>
+            <input type="checkbox" id="useless_spam"><br>
+            <input type="button" id="check_text" v-on:click="SubmitClick" value="Submit">
+        </div>
+        <script src="https://unpkg.com/vue"></script>
+        <script>
+            var missing_fields='';
+            new Vue({
+               el:'#Form',
+               data:{
+                   name:null,
+                   surname:null,
+                   personal_code:null,
+                   
+               },
+              methods: {
+                   SubmitClick: function(e){
+                   if(!this.name || !this.surname || !this.personal_code)
+                   {
+                       if (!this.name)
+                       {
+                           missing_fields+="Name ";
+                           $("#name").css('background-color','pink');
+                       }
+                       if (!this.surname)
+                       {
+                           missing_fields+="Surname ";
+                           $("#surname").css('background-color','pink');
+                       }
+                       if (!this.personal_code)
+                       {
+                           missing_fields+="Personal code ";
+                           $("#personal_code").css('background-color','pink');
+                       }
+                   
+                    alert("Please fill the following fields "+missing_fields);
+                    missing_fields='';
+                   }
+                   else
+                   {
+                       alert("Succesfully completed");
+                   }
+               }
+              },
+            })
+        </script>
     </body>
+
 </html>
